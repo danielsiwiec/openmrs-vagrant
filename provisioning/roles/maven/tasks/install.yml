@@ -1,0 +1,11 @@
+- yum: name=java-1.7.0-openjdk-devel.x86_64
+  sudo: true
+- get_url: url=http://mirrors.ibiblio.org/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz dest=~
+- unarchive: copy=no src=~/apache-maven-3.3.1-bin.tar.gz dest=/usr/local
+  sudo: true
+- file: state=link src=/usr/local/apache-maven-3.3.1/bin/mvn dest={{item}}/mvn mode=0755
+  sudo: true
+  with_items:
+    - /usr/local/bin
+    - /usr/local/sbin
+- file: path=~/apache-maven-3.3.1-bin.tar.gz state=absent

@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  roles:
+    - maven
+  tasks:
+    - yum: name={{item}}
+      with_items:
+        - mysql-server.x86_64
+        - MySQL-python
+      sudo: true
+    # - shell: nohup mvn jetty:run & chdir=/vagrant/openmrs-core/webapp
+    - service: name=mysqld state=started
+    - mysql_user: name=root password=abc priv=*.*:ALL,GRANT state=present login_user=root login_password=abc

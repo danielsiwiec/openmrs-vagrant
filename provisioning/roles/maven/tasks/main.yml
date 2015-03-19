@@ -1,0 +1,6 @@
+- shell: mvn --version
+  register: mvn_result
+  ignore_errors: True
+- debug: msg="Maven result {{ mvn_result }}"
+- include: install.yml
+  when: mvn_result.rc != 0
